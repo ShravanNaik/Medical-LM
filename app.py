@@ -187,18 +187,17 @@ def generate_podcast(text,temparature):
         
         Guidelines for the Medical Expert (Dr. William):
         1. Start by introducing yourself and summarizing the patient's case in a conversational tone.
-        2. Discuss all critical information from the document
-        # , including:
-        #     - Patient demographics (age, gender, etc.)
-        #     - Diagnosis and medical history
-        #     - Pre-existing conditions.
-        #     - Key symptoms at admission
-        #     - Treatment provided during the hospital stay
-        #     - Lab results 
-        #     - Medications prescribed
-        #     - Follow-up care instructions
-        #     - Discharge plan
-        #     - Any warnings or red flags for the patient or caregivers
+        2. Discuss all critical information from the document,including:
+             - Patient demographics (age, gender, etc.)
+             - Diagnosis and medical history
+             - Pre-existing conditions.
+             - Key symptoms at admission
+             - Treatment provided during the hospital stay
+             - Lab results 
+             - Medications prescribed
+             - Follow-up care instructions
+             - Discharge plan
+             - Any warnings or red flags for the patient or caregivers
         3. Share your own opinions, experiences, and insights to make the discussion relatable.
         4. Explore related topics or broader themes (e.g., lifestyle changes, patient education, etc.).
         5. Maintain a natural, conversational flow with the host.
