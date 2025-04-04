@@ -863,7 +863,7 @@ def main():
                 st.subheader("Flashcard Game")
                 st.write("Let's test your knowledge! Here are some fun questions:")
 
-                    # Parse and display flashcards
+                    # Parse and display flashcardss
                 flashcards = parse_flashcards(flashcard_text.raw)
                 display_flashcards(flashcards)
 
