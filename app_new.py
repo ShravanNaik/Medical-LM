@@ -284,42 +284,32 @@ def generate_faqs(text,temparature):
 
     # Define the FAQ agent
     faq_agent = Agent(
-        role="Patient Education Specialist",
-        goal="Create comprehensive, patient-centered FAQs that address common concerns and knowledge gaps",
-        backstory="You are an expert in patient education with years of experience anticipating what questions patients have after receiving medical information. You excel at identifying information gaps and providing clear, actionable answers.",
+        role="FAQ Generator",
+        goal="Generate a list of frequently asked questions (FAQs) and their answers based on the document content.",
+        backstory="You are an expert in analyzing documents and creating FAQs that are informative and easy to understand.",
         llm=llm,
         verbose=True,
     )
 
+    # Define the FAQ task
     faq_task = Task(
-        description=f"""Generate a comprehensive FAQ based on this medical document:
-        
+        description=f"""Generate a list of FAQs and their answers based on the following document content:
+        Document Content:
         {text}
-        
-        Your FAQ should:
-        1. Address at least 8-12 questions covering different aspects of care
-        2. Include questions about:
-           - Diagnosis and condition specifics
-           - Treatment plans and medication management
-           - Follow-up care requirements
-           - Warning signs requiring medical attention
-           - Daily lifestyle adaptations
-           - Recovery expectations and timelines
-        3. Organize questions in order of typical patient priority
-        4. Ensure answers are:
-           - Concise (2-4 sentences per answer)
-           - Actionable with specific guidance
-           - Written at approximately 8th-grade reading level
-           - Sensitive to common concerns and anxieties
-        
-        Format each FAQ as:
-        Q: [Question phrased from patient perspective]
-        A: [Clear, concise answer with actionable information]
+
+        Guidelines:
+        1. Identify key topics and themes in the document.
+        2. Create a list of FAQs that users might ask about these topics.
+        3. Provide clear and concise answers to each FAQ.
+        4. Format the output as follows:
+           Q: [Question]
+           A: [Answer]
         """,
         agent=faq_agent,
-        expected_output="A comprehensive set of FAQs addressing the most important patient questions raised by the medical document, with clear and actionable answers.",
+        expected_output="A list of FAQs and their answers.",
     )
 
+    # Create a crew and execute the task
     crew = Crew(agents=[faq_agent], tasks=[faq_task], verbose=True)
     result = crew.kickoff()
     return result
