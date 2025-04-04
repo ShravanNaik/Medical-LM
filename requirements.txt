@@ -23,4 +23,5 @@ scikit-learn
 langgraph
 PyPDF2
 dotenv
+portaudio19-dev
 pysqlite3-binary
