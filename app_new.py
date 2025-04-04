@@ -284,36 +284,45 @@ def generate_faqs(text,temparature):
 
     # Define the FAQ agent
     faq_agent = Agent(
-        role="FAQ Generator",
-        goal="Generate a list of frequently asked questions (FAQs) and their answers based on the document content.",
-        backstory="You are an expert in analyzing documents and creating FAQs that are informative and easy to understand.",
+        role="Patient Education Specialist",
+        goal="Create comprehensive, patient-centered FAQs that address common concerns and knowledge gaps",
+        backstory="You are an expert in patient education with years of experience anticipating what questions patients have after receiving medical information. You excel at identifying information gaps and providing clear, actionable answers.",
         llm=llm,
         verbose=True,
     )
 
-    # Define the FAQ task
     faq_task = Task(
-        description=f"""Generate a list of FAQs and their answers based on the following document content:
-        Document Content:
+        description=f"""Generate a comprehensive FAQ based on this medical document:
+        
         {text}
-
-        Guidelines:
-        1. Identify key topics and themes in the document.
-        2. Create a list of FAQs that users might ask about these topics.
-        3. Provide clear and concise answers to each FAQ.
-        4. Format the output as follows:
-           Q: [Question]
-           A: [Answer]
+        
+        Your FAQ should:
+        1. Address at least 8-12 questions covering different aspects of care
+        2. Include questions about:
+           - Diagnosis and condition specifics
+           - Treatment plans and medication management
+           - Follow-up care requirements
+           - Warning signs requiring medical attention
+           - Daily lifestyle adaptations
+           - Recovery expectations and timelines
+        3. Organize questions in order of typical patient priority
+        4. Ensure answers are:
+           - Concise (2-4 sentences per answer)
+           - Actionable with specific guidance
+           - Written at approximately 8th-grade reading level
+           - Sensitive to common concerns and anxieties
+        
+        Format each FAQ as:
+        Q: [Question phrased from patient perspective]
+        A: [Clear, concise answer with actionable information]
         """,
         agent=faq_agent,
-        expected_output="A list of FAQs and their answers.",
+        expected_output="A comprehensive set of FAQs addressing the most important patient questions raised by the medical document, with clear and actionable answers.",
     )
 
-    # Create a crew and execute the task
     crew = Crew(agents=[faq_agent], tasks=[faq_task], verbose=True)
     result = crew.kickoff()
     return result
-
 
 def generate_flashcards(text,temparature):
 
@@ -321,46 +330,35 @@ def generate_flashcards(text,temparature):
 
    
     quiz_master = Agent(
-        role="Medical Education Designer",
-        goal="Create engaging, clinically relevant learning materials that reinforce key medical concepts",
-        backstory="You are an expert in medical education who specializes in creating evidence-based learning tools. You understand how to identify high-value clinical concepts and create engaging questions that reinforce knowledge retention.",
+        role="Quiz Master",
+        goal="Create fun and educational flashcards to help users learn about the document content.",
+        backstory="You are an expert in creating engaging and interactive learning materials. You love designing quizzes and flashcards that make learning enjoyable.",
         llm=llm,
         verbose=True,
     )
 
+   
     flashcard_task = Task(
-        description=f"""Create a set of educational flashcards based on this medical document:
-        
+        description=f"""Create a set of flashcards based on the following document content:
+        Document Content:
         {text}
-        
-        Your flashcards should:
-        1. Cover 8-10 clinically significant concepts from the document
-        2. Include a mix of:
-           - Diagnostic criteria questions
-           - Treatment protocol questions  
-           - Medication management questions
-           - Patient education priorities
-           - Follow-up care requirements
-        3. Design each question with:
-           - One clearly correct answer
-           - Three plausible but incorrect alternatives
-           - Varying difficulty levels (include some challenging questions)
-        4. Ensure questions test application of knowledge, not just recall
-        5. Include brief explanations for why the correct answer is right
-        
-        Format as:
-        Q: [Clear, specific question]
-        A: [Option 1]
-        B: [Option 2]
-        C: [Option 3]
-        D: [Option 4]
-        Correct Answer: [Letter]
-        Explanation: [Brief explanation of why this is correct]
+
+        Guidelines:
+        1. Generate multiple-choice questions with 4 options.
+        2. Ensure the questions are fun, engaging, and educational.
+        3. Format the output as follows:
+           Q: [Question]
+           A: [Option 1]
+           B: [Option 2]
+           C: [Option 3]
+           D: [Option 4]
+           Correct Answer: [Correct Option]
         """,
         agent=quiz_master,
-        expected_output="A set of educational flashcards that effectively test and reinforce understanding of the key medical concepts in the document.",
+        expected_output="A list of flashcards, each containing a question, 4 options, and the correct answer.",
     )
 
+ 
     crew = Crew(agents=[quiz_master], tasks=[flashcard_task], verbose=True)
     result = crew.kickoff()
     return result
