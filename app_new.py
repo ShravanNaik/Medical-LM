@@ -739,7 +739,7 @@ def listen():
 
 def main():
 
-    st.markdown("<h1 style='text-align: center;'>Medical Documentation Assistant 🩺</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Medical Document Assistant 🩺</h1>", unsafe_allow_html=True)
     st.sidebar.header("Settings")
     temparature = st.sidebar.slider("Temparature",min_value=0.0,max_value=2.0,value=0.7)
 
